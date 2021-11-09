@@ -6,7 +6,15 @@
     <title>Add User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/saveUser}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+    <p>
+        <label for="username">User Name:</label>
+        <input type="text" th:field="*{username}" id="username">
+    </p>
+    <p>
+        <label for="password">Password:</label>
+        <input type="text" th:field="*{password}" id="password">
+    </p>
     <p>
         <label for="name">Name:</label>
         <input type="text" th:field="*{firstName}" id="name">
@@ -20,8 +28,14 @@
         <input type="text" th:field="*{email}" id="email">
     </p>
     <p>
-        <input type="submit" value="OK" />
+        <input type="checkbox" name="rolles" value="ROLE_USER"/> USER
+        <input type="checkbox" name="rolles" value="ROLE_ADMIN"/> ADMIN
+        <input type="submit" value="OK"/>
     </p>
 </form>
+<h4>Authorization page :</h4>
+<button>
+    <a th:href="@{/logout}">Logout</a>
+</button>
 </body>
 </html>

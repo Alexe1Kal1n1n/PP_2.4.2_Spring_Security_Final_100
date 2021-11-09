@@ -4,35 +4,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Admin Page</title>
 </head>
 <body>
 <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table of Users
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Table of All Users
 </h1>
 <table border="1" cellpadding="7">
     <tr>
         <th> Id</th>
+        <th> Username</th>
         <th> Name</th>
         <th> Last Name</th>
         <th> Email</th>
+        <th> Password</th>
         <th> Update User</th>
         <th> Delete User</th>
     </tr>
+    <tr>
     <tr th:each="user : ${allUs}">
         <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
         <td th:utext="${user.getFirstName()}"></td>
         <td th:utext="${user.getLastName()}"></td>
         <td th:utext="${user.getEmail()}"></td>
-        <td><a th:href="@{/edit/{id}(id=${user.getId()})}">Update</a></td>
+        <td th:utext="${user.getPassword()}"></td>
         <td>
-            <form th:method="DELETE" th:action="@{/delete/{id}(id=${user.getId()})}">
+            <button><a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Update</a></button>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
                 <input type="submit" value="Delete">
             </form>
         </td>
     </tr>
 </table>
 <br>
-<input type="button" value="Add User" onclick="window.location.href='addNewUser'"/>
+<h4>My Information :</h4>
+<button>
+    <a th:href="@{/user}">Info</a>
+</button>
+<br>
+<h4>Add User :</h4>
+<input type="button" value="Add" onclick="window.location.href='admin/new'"/>
+<br>
+<h4>Authorization page :</h4>
+<button>
+    <a th:href="@{/logout}">Logout</a>
+</button>
+<br>
 </body>
 </html>

@@ -1,18 +1,23 @@
 package spring.mvc.hibernate.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import spring.mvc.hibernate.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import java.util.List;
 
 @Repository
-public class UserDaoImp implements UserDAO {
+public class UserDaoImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    public UserDaoImpl() {
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -38,5 +43,14 @@ public class UserDaoImp implements UserDAO {
     @Override
     public void delete(int id) {
         entityManager.remove(getById(id));
+    }
+
+    @Override
+    public User getUser(String userName) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT user FROM User user WHERE user.username =:username", User.class);
+        return query
+                .setParameter("username", userName)
+                .getSingleResult();
     }
 }
