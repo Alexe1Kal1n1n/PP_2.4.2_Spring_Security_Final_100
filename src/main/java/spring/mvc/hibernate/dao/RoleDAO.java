@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RoleDAO {
 
-    List<User> listRole();
+    List<User> getListRole();
 
     void add(Role role);
 

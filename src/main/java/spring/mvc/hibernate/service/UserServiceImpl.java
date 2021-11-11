@@ -1,11 +1,14 @@
 package spring.mvc.hibernate.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.mvc.hibernate.dao.UserDAO;
+import spring.mvc.hibernate.model.Role;
 import spring.mvc.hibernate.model.User;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,8 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> listUsers() {
-        return userDAO.listUsers();
+    public List<User> getListUsers() {
+        return userDAO.getListUsers();
     }
 
     @Override
@@ -51,4 +54,5 @@ public class UserServiceImpl implements UserService {
     public User getUser(String userName) {
         return userDAO.getUser(userName);
     }
+
 }

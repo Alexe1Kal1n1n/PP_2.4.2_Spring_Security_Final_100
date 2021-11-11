@@ -17,7 +17,7 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listRole() {
+    public List<User> getListRole() {
         return entityManager.createQuery("from Role").getResultList();
     }
 

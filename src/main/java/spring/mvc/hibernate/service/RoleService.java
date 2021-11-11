@@ -3,11 +3,12 @@ package spring.mvc.hibernate.service;
 import spring.mvc.hibernate.model.Role;
 import spring.mvc.hibernate.model.User;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface RoleService {
 
-    List<User> listRole();
+    List<User> getListRole();
 
     void add(Role role);
 
@@ -16,4 +17,6 @@ public interface RoleService {
     Role getById(int id);
 
     Role getByName(String roleName);
+
+    public HashSet getRoleSet(String[] role);
 }

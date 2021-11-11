@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
+    public List<User> getListUsers() {
         return entityManager.createQuery("from User").getResultList();
     }
 
@@ -47,10 +47,20 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public User getUser(String userName) {
+        return entityManager.createQuery(
+                        "SELECT user FROM User user WHERE user.username =:username", User.class)
+                .setParameter("username", userName)
+                .getSingleResult();
+    }
+}
+
+
+/*
+public User getUser(String userName) {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT user FROM User user WHERE user.username =:username", User.class);
         return query
                 .setParameter("username", userName)
                 .getSingleResult();
     }
-}
+ */

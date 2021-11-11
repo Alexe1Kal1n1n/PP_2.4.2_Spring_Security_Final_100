@@ -27,7 +27,7 @@ public class AdminController {
 
     @GetMapping
     public String showAllUser(Model model) {
-        List<User> allUsers = userService.listUsers();
+        List<User> allUsers = userService.getListUsers();
         model.addAttribute("allUs", allUsers);
         return "admin-page";
     }
@@ -36,18 +36,13 @@ public class AdminController {
     public String addNewUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("role", roleService.listRole());
+        model.addAttribute("role", roleService.getListRole());
         return "user-info";
     }
 
     @PostMapping("/new")
     public String addNewUser(@ModelAttribute User user, @RequestParam("rolles") String[] role) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String roles :
-                role) {
-            roleSet.add(roleService.getByName(roles));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(roleService.getRoleSet(role));
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -55,17 +50,13 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable("id") int id, ModelMap model) {
         model.addAttribute("user", userService.getById(id));
-        model.addAttribute("role", roleService.listRole());
+        model.addAttribute("role", roleService.getListRole());
         return "edit-user";
     }
 
     @PatchMapping(value = "/edit/{id}")
     public String editUser(@ModelAttribute User user, @RequestParam("rolles") String[] role) {
-        Set<Role> rolesSet = new HashSet<>();
-        for (String roles : role) {
-            rolesSet.add((roleService.getByName(roles)));
-        }
-        user.setRoles(rolesSet);
+        user.setRoles(roleService.getRoleSet(role));
         userService.update(user);
         return "redirect:/admin";
     }
@@ -76,3 +67,16 @@ public class AdminController {
         return "redirect:/admin";
     }
 }
+
+/*
+@PostMapping("/new")
+    public String addNewUser(@ModelAttribute User user, @RequestParam("rolles") String[] role) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String roles : role) {
+            roleSet.add(roleService.getByName(roles));
+        }
+        user.setRoles(roleSet);
+        userService.saveUser(user);
+        return "redirect:/admin";
+    }
+ */
