@@ -67,16 +67,3 @@ public class AdminController {
         return "redirect:/admin";
     }
 }
-
-/*
-@PostMapping("/new")
-    public String addNewUser(@ModelAttribute User user, @RequestParam("rolles") String[] role) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String roles : role) {
-            roleSet.add(roleService.getByName(roles));
-        }
-        user.setRoles(roleSet);
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
- */
