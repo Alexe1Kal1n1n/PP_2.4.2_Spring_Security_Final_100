@@ -1,6 +1,7 @@
 package spring.mvc.hibernate.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import spring.mvc.hibernate.model.Role;
 import spring.mvc.hibernate.model.User;
 
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RoleDAOImpl implements RoleDAO {
 
     @PersistenceContext

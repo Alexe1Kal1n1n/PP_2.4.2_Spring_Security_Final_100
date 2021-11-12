@@ -17,6 +17,7 @@ public class RoleServiceImpl implements RoleService{
 
     public RoleServiceImpl(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;
+//        addDefaultRole();
     }
 
     @Override
@@ -57,5 +58,10 @@ public class RoleServiceImpl implements RoleService{
             roleSet.add(roleDAO.getByName(roles));
         }
         return (HashSet) roleSet;
+    }
+
+    public void addDefaultRole() {
+        add(new Role(1L,"ROLE_ADMIN"));
+        add(new Role(2L,"ROLE_USER"));
     }
 }

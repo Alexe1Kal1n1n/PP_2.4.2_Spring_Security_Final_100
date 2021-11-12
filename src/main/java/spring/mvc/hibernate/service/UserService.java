@@ -19,4 +19,6 @@ public interface UserService {
     void delete(int id);
 
     User getUser(String userName);
+
+    void addDefaultUser();
 }
