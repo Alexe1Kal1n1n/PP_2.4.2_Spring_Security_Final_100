@@ -1,14 +1,15 @@
 package spring.mvc.hibernate.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.mvc.hibernate.dao.UserDAO;
-import spring.mvc.hibernate.model.Role;
 import spring.mvc.hibernate.model.User;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserService {
         this.roleService = roleService;
     }
 
+    private BCryptPasswordEncoder bCrypt() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<User> getListUsers() {
@@ -30,6 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(bCrypt().encode(user.getPassword()));
         userDAO.saveUser(user);
     }
 
@@ -42,6 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(User user) {
+        user.setPassword(bCrypt().encode(user.getPassword()));
         userDAO.update(user);
     }
 
